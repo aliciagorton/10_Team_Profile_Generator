@@ -33,3 +33,84 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+
+const teamMembers = [];
+
+function createManager(){
+    console.log("Please enter your manager's info");
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "managerName",
+            message: "What is your manager's name?"
+        },
+        {
+            type: "input",
+            name: "managerID",
+            message: "What is your manager's id number?"
+        },
+        {
+            type: "input",
+            name: "managerEmail",
+            message: "What is your manager's email?"
+        },
+        {
+            type: "input",
+            name: "managerOfficeNumber",
+            message: "What is your manager's office number?"
+        }
+    ]).then(answers => {
+        const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerOfficeNumber);
+        teamMembers.push(manager);
+        createTeam();
+    })
+}
+
+function createTeam(){
+    inquirer.prompt([
+        {
+            type: "list",
+            name: "memberChoice",
+            message: "Which type of team member would you like to add?",
+            choices: [
+              "Engineer",
+              "Intern",
+              "I don't want to add any more team members"
+            ]
+        }
+    ]).then(answer => {
+        switch(answer.memberChoice){
+            case "Engineer":
+                addEngineer();
+                break;
+            case "Intern":
+                addIntern();
+                break;
+            default:
+                buildTeam();
+        }
+    })
+}
+
+function addEngineer(){
+    inquirer.prompt([
+        {
+
+        }
+    ])
+}
+
+function addIntern(){
+    inquirer.prompt([
+        {
+            
+        }
+    ])
+}
+
+function buildTeam(){
+    //look into fs write file in node js documention on what you will need
+}
+
+//dont forgot to call createManager()
