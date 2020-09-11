@@ -95,22 +95,71 @@ function createTeam(){
 
 function addEngineer(){
     inquirer.prompt([
+        
         {
-
-        }
-    ])
+            type: "input",
+            name: "enginerName",
+            message: "What is your enginer's name?"
+        },
+        {
+            type: "input",
+            name: "enginerID",
+            message: "What is your enginer's id number?"
+        },
+        {
+            type: "input",
+            name: "enginerEmail",
+            message: "What is your enginer's email?"
+        },
+        {
+            type: "input",
+            name: "enginerGitHub",
+            message: "What is your enginer's GitHub?"
+        }   
+        
+    ]).then(answers => {
+        const engineer = new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.engineerGitHub);
+        teamMembers.push(engineer);
+        createTeam();
+    })
 }
 
 function addIntern(){
     inquirer.prompt([
+    
         {
-            
+            type: "input",
+            name: "InternName",
+            message: "What is your intern's name?"
+        },
+        {
+            type: "input",
+            name: "enginerID",
+            message: "What is your intern's id number?"
+        },
+        {
+            type: "input",
+            name: "enginerEmail",
+            message: "What is your intern's email?"
+        },
+        {
+            type: "input",
+            name: "enginerGitHub",
+            message: "What is your intern's school?"
         }
-    ])
+        
+    ]).then(answers => {
+        const intern = new Intern(answers.internName, answers.internID, answers.internEmail, answers.internGitHub);
+        teamMembers.push(intern);
+        createTeam();
+    })
 }
 
 function buildTeam(){
     //look into fs write file in node js documention on what you will need
+    // write file 
+    // OUTPUT_DIR
+    fs.writeFile(outputPath, render(teamMembers), "utf-8")
 }
 
-//dont forgot to call createManager()
+createManager();
