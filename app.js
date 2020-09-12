@@ -98,26 +98,27 @@ function addEngineer(){
         
         {
             type: "input",
-            name: "enginerName",
+            name: "engineerName",
             message: "What is your enginer's name?"
         },
         {
             type: "input",
-            name: "enginerID",
+            name: "engineerID",
             message: "What is your enginer's id number?"
         },
         {
             type: "input",
-            name: "enginerEmail",
+            name: "engineerEmail",
             message: "What is your enginer's email?"
         },
         {
             type: "input",
-            name: "enginerGitHub",
+            name: "engineerGitHub",
             message: "What is your enginer's GitHub?"
         }   
         
     ]).then(answers => {
+        console.log(answers)
         const engineer = new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.engineerGitHub);
         teamMembers.push(engineer);
         createTeam();
@@ -129,27 +130,27 @@ function addIntern(){
     
         {
             type: "input",
-            name: "InternName",
+            name: "internName",
             message: "What is your intern's name?"
         },
         {
             type: "input",
-            name: "enginerID",
+            name: "internID",
             message: "What is your intern's id number?"
         },
         {
             type: "input",
-            name: "enginerEmail",
+            name: "internEmail",
             message: "What is your intern's email?"
         },
         {
             type: "input",
-            name: "enginerGitHub",
+            name: "internSchool",
             message: "What is your intern's school?"
         }
         
     ]).then(answers => {
-        const intern = new Intern(answers.internName, answers.internID, answers.internEmail, answers.internGitHub);
+        const intern = new Intern(answers.internName, answers.internID, answers.internEmail, answers.internSchool);
         teamMembers.push(intern);
         createTeam();
     })
@@ -159,7 +160,12 @@ function buildTeam(){
     //look into fs write file in node js documention on what you will need
     // write file 
     // OUTPUT_DIR
-    fs.writeFile(outputPath, render(teamMembers), "utf-8")
+    console.log(teamMembers)
+
+    fs.writeFile(outputPath, render(teamMembers), (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+      });
 }
 
 createManager();
